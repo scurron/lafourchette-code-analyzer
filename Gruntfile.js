@@ -8,7 +8,7 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
 
-    /* php-cs-fixer
+    /** php-cs-fixer
      *
      * Default options:
      * bin: 'php-cs-fixer',
@@ -20,23 +20,55 @@ module.exports = function(grunt) {
      * quiet: false,
      * ignoreExitCode: false,
      * maxBuffer: 200*1024
+     *
+     * @see https://github.com/fabpot/PHP-CS-Fixer for fixer arguments
      */
     phpcsfixer: {
       options: {
         bin: 'bin/php-cs-fixer',
-          verbose: true,
-          dryRun: enableDryRun,
-          ignoreExitCode: false,
-          level: 'psr2',
-          diff: showDiff,
-          standard: 'Symfony2'
+        verbose: true,
+        dryRun: enableDryRun,
+        ignoreExitCode: false,
+        level: 'psr2',
+        diff: showDiff,
+        //fixers: ['linefeed', 'short_tag', 'indentation', 'trailing_spaces', 'visibility'],
+        standard: 'sf23'
       },
       src: {
         dir: 'src'
       }
-    }
-  });
+    },
 
+    /**
+     * php-lint
+     */
+    phplint: {
+      options: {
+        swapPath: "./code-analyzer/tmp/"
+      },
+      good: ['src/**/*-good.php'],
+      bad: ['src/**/*-bad.php']
+    },
+
+   /**
+    * phpmd
+    */
+   phpmd: {
+     application: {
+       dir: 'src'
+     },
+     options: {
+       bin: 'bin/phpmd',
+       reportFormat: 'text',
+       suffixes: '/**/*.php',
+       exclude: 'app,vendor', 
+       rulesets: 'codesize,unusedcode,naming',
+       maxBuffer: 200*1024
+     }
+   }
+ });
 
   grunt.loadNpmTasks('grunt-php-cs-fixer');
+  grunt.loadNpmTasks('grunt-phplint');
+  grunt.loadNpmTasks('grunt-phpmd');
 }
