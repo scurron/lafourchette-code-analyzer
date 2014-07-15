@@ -44,7 +44,7 @@ module.exports = function(grunt) {
      */
     phplint: {
       options: {
-        swapPath: "./code-analyzer/tmp/"
+        swapPath: "./cache/phplint"
       },
       good: ['src/**/*-good.php'],
       bad: ['src/**/*-bad.php']
