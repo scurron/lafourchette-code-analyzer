@@ -1,0 +1,24 @@
+{
+    "name": "lafourchette-analyzer",
+    "type": "application",
+    "description": "A script to automatically test and fix your symfony2 coding Standard",
+    "authors": [
+        {
+            "name": "Sidney curron",
+            "email": "scurronn@lafourchette.com"
+        }
+    ],
+    "require-dev": {
+        "php": ">=5.3.6",
+        "fabpot/php-cs-fixer": "0.5.*",
+        "sebastian/phpcpd": "2.0.*",
+        "jakub-onderka/php-parallel-lint": "0.*",
+        "jakub-onderka/php-console-highlighter": "0.*",
+        "phpspec/phpspec": "dev-master",
+        "phpunit/phpunit": "4.1.*",
+        "phpmd/phpmd": "2.0.*"
+    },
+    "config": {
+        "bin-dir": "bin"
+    }
+}
