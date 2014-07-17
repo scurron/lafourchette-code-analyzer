@@ -32,7 +32,8 @@ module.exports = function(grunt) {
         level: 'psr2',
         diff: showDiff,
         //fixers: ['linefeed', 'short_tag', 'indentation', 'trailing_spaces', 'visibility'],
-        standard: 'sf23'
+        standard: 'sf23',
+        maxBuffer: 200*1024
       },
       src: {
         dir: 'src'
@@ -65,10 +66,24 @@ module.exports = function(grunt) {
        rulesets: 'codesize,unusedcode,naming',
        maxBuffer: 200*1024
      }
+   },
+
+   /**
+    * watch
+    */
+   watch: {
+     src: {
+       files: ['src/**/*.php'],
+       tasks: ['phpcsfixer', 'phplint', 'phpmd']
+     }
    }
  });
 
-  grunt.loadNpmTasks('grunt-php-cs-fixer');
-  grunt.loadNpmTasks('grunt-phplint');
-  grunt.loadNpmTasks('grunt-phpmd');
+ grunt.registerTask('test', ['phplint', 'phpmd']);
+ grunt.registerTask('default', ['phpcsfixer', 'phplint', 'phpmd']);
+
+ grunt.loadNpmTasks('grunt-php-cs-fixer');
+ grunt.loadNpmTasks('grunt-phplint');
+ grunt.loadNpmTasks('grunt-phpmd');
+ grunt.loadNpmTasks('grunt-contrib-watch');
 }
